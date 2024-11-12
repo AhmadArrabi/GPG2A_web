@@ -1,7 +1,8 @@
 ---
 layout: ../layouts/Layout.astro
-title: Academic Project Page Template
-description: Simple project page template for your research paper, built with Astro and Tailwind CSS
+title: "Cross-View Meets Diffusion: Aerial Image Synthesis With Geometry And Text
+Guidance"
+description: Official project webpage
 favicon: favicon.svg
 thumbnail: screenshot.png
 ---
@@ -30,35 +31,60 @@ export const components = {pre: CodeBlock, table: Table}
   title={frontmatter.title}
   authors={[
     {
-      name: "Roman Hauksson",
-      url: "https://roman.technology",
-      institution: "Independent",
-      notes: ["*", "†"],
+      name: "Ahmad Arrabi",
+      url: "https://ahmadarrabi.github.io",
+      notes: ["1†"],
     },
     {
-      name: "Author Two",
-      institution: "Institution Two",
-      notes: ["*", "†"],
+      name: "Xiaohan Zhang",
+      url: "https://zxh009123.github.io",
+      notes: ["1†"],
     },
     {
-      name: "Author Three",
-      institution: "Institution Three",
-      notes: ["†"],
+      name: "Waqas Sultani",
+      url: "https://waqassultani.github.io/",
+      notes: ['2']
     },
     {
-      name: "Author Four",
-      institution: "Institution Four",
+      name: "Chen Chen",
+      url: "https://www.crcv.ucf.edu/chenchen/index.html",
+      notes: ['3']
+    },
+    {
+      name: "Safwan Wshah",
+      url: "https://www.wshahaigroup.com/",
+      notes: ["1*"],
     },
   ]}
-  conference="Conference Name"
-  notes={[
+  insitute={[
     {
-      symbol: "*",
-      text: "author note one",
+      symbol: "1",
+      text: "Vermont Artificial Intelligence", 
+    },
+  ]}
+  institutions={[
+    {
+      symbol: "1",
+      text: "Vermont Artificial Intelligence Lab, Department of Computer Science, University of Vermont",
     },
     {
+      symbol: "2",
+      text: "Intelligent Machines Lab, Information Technology University",
+    },
+    {
+      symbol: "3",
+      text: "Center for Research in Computer Vision, University of Central Florida",
+    },
+  ]}
+  conference="WACV 2025"
+  notes={[
+    {
       symbol: "†",
-      text: "author note two",
+      text: "Equal contribution",
+    },
+    {
+      symbol: "*",
+      text: "Senior author",
     },
   ]}
   links={[
@@ -69,12 +95,12 @@ export const components = {pre: CodeBlock, table: Table}
     },
     {
       name: "Code",
-      url: "https://github.com/RomanHauksson/academic-project-astro-template",
+      url: "https://github.com/AhmadArrabi/GPG2A",
       icon: "mdi:github",
     },
     {
       name: "arXiv",
-      url: "",
+      url: "https://arxiv.org/abs/2408.04224",
       icon: "academicons:arxiv",
     },
   ]}
