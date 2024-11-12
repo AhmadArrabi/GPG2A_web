@@ -20,7 +20,11 @@ import YouTubeVideo from "../components/YouTubeVideo.astro";
 import LaTeX from "../components/LaTeX.astro";
 
 import outside from "../assets/outside.mp4";
-import transformer from "../assets/transformer.webp";
+import demo from "../assets/demo.svg"
+import GPG2A from "../assets/model.svg"
+import samples from "../assets/samples.svg"
+import VIGORv2 from "../assets/data.svg"
+import results from "../assets/results.svg"
 import Splat from "../components/Splat.tsx"
 
 import CodeBlock from "../components/CodeBlock.astro";
@@ -32,7 +36,8 @@ export const components = {pre: CodeBlock, table: Table}
   authors={[
     {
       name: "Ahmad Arrabi",
-      url: "https://ahmadarrabi.github.io",
+      // url: "https://ahmadarrabi.github.io",
+      url: "https://www.linkedin.com/in/ahmad-arrabi/",
       notes: ["1†"],
     },
     {
@@ -106,75 +111,61 @@ export const components = {pre: CodeBlock, table: Table}
   ]}
   />
 
-<Video source={outside} />
-
-<HighlightedSection>
-
+<Figure
+    caption=""
+  >
+    <Image source={demo} altText=""/>
+</Figure>
 ## Abstract
 
-This is a live demo for a template you can use to create a simple project page for your research paper. See the code for the template and instructions on how to use it yourself [here](https://github.com/RomanHauksson/academic-project-astro-template). It's made with the [Astro web framework](https://astro.build/) and styled with [Tailwind CSS](https://tailwindcss.com/). You write the content in [MDX](https://mdxjs.com/), which enables markdown formatting like **bold**, _italics_, and ~strikethrough~, as well as custom components like <SmallCaps>small caps.</SmallCaps>
+<p style={{ textAlign: "justify" }}>Frequent high-quality aerial images are not always accessible due to their high effort and cost requirements. One solution is to use Ground-to-Aerial (G2A) image synthesis to generate aerial images from easily collectible ground images. G2A is rarely studied due to various challenges like the drastic view changes, occlusion, and limited range of visibility.  This paper presents a novel Geometric Preserving Ground-to-Aerial Image Synthesis (GPG2A) model that can generate realistic aerial images from ground images.  GPG2A consists of two stages, the first stage predicts the Bird’s Eye View (BEV) segmentation (referred to as the BEV layout map) from the ground image. The second stage synthesizes the aerial image from the predicted BEV layout map and text descriptions of the ground image. To train our model, we present a new multi-modal cross-view dataset, namely VIGORv2, built upon VIGOR. VIGORv2 introduces newly collected aerial images, layout maps, and text descriptions. Our experiments illustrate that GPG2A synthesizes better geometry-preserved aerial images than existing models. We also present two applications, data augmentation for cross-view geo-localization and sketch-based region search, to further verify the effectiveness of our GPG2A.</p>
 
-</HighlightedSection>
+## Motivations 💡
 
-## Figures
+<p style={{ textAlign: "justify" }}>⭐ Aerial images offer high-resolution, detailed views that are valuable across various applications, unlike lower-resolution satellite images that are often obscured by clouds</p>
+<p style={{ textAlign: "justify" }}>⭐ Current aerial images are limited by the high effort and cost required to capture them, often captured by Unmanned Aerial Vehicles (UAVs) or drones </p>
+<p style={{ textAlign: "justify" }}>⭐ Ground images are far more available and cost-effective, especially in the recent advanced cars and autonomous vehicles, along with crowdsourcing platforms which get tons of daily uploads of street-view images </p>
+<p style={{ textAlign: "justify" }}>⭐ Thus, a promising cost-effective solution for aerial image collection is ground-to-aerial (G2A) image synthesis, which aims to generate more frequent aerial images from their corresponding ground views </p>
 
-Use the figure component to display images, videos, equations, or any other element, with an optional caption.
+## Model Overview
+
+<p style={{ textAlign: "jusftify" }}> GPG2A features a two-stage process: The first stage transforms the input ground image into a Bird’s Eye View (BEV) layout map estimate. The second stage leverages a pre-trained diffusion model (ControlNet), conditioned on the predicted BEV layout map from the first stage, to generate photo-realistic aerial images</p>
 
 <Figure
-    caption="Diagram of the transformer deep learning architecture."
+    caption="GPG2A architecture"
   >
-    <Image source={transformer} altText="Diagram of the transformer deep learning architecture." />
+    <Image source={GPG2A} altText="Model architecture" width={950}/>
 </Figure>
 
-## Two columns
+### Why Two stages? 🤔  
+<p style={{ textAlign: "justify" }}>⭐ The problem is simplified! reducing the domain gap between aerial and ground views</p>
+<p style={{ textAlign: "justify" }}>⭐ The BEV layout map explicitly preserves geometry correspondence between the views</p>
+<p style={{ textAlign: "justify" }}>⭐ Leverage strong pre-trained diffusion foundation models (stage II)</p>
 
-Use the two columns component to display two columns of content. In this example, the first column contains a figure with a YouTube video and the second column contains a figure with a custom [React](https://react.dev/) component. By default, they display side by side, but if the screen is narrow enough (for example, on mobile), they're arranged vertically.
+### Why add text? 🤔
+<p style={{ textAlign: "justify" }}>⭐ To further improve the synthesis quality and fuse surrounding information not fully represented in the BEV layout map! Such as block types (e.g., commercial or residential)</p>
 
-<TwoColumns>
-  <Figure slot="left" caption="Take a look at this YouTube video.">
-    <YouTubeVideo videoId="wjZofJX0v4M" />
-  </Figure>
-  <Figure slot="right" caption="Now look at this Gaussian Splat, rendered with a React component.">
-    <Splat client:idle />
-  </Figure>
-</TwoColumns>
+##
 
-## Heading levels
+## VIGORv2 🗺️
 
-Use headings to divide your content into sections.
+<p style={{ textAlign: "justify" }}> VIGORv2 includes center-aligned aerial-ground image pairs, layout maps, and text descriptions of ground images. We cover 4 major US cities and apply a geographical train-test split as shown below</p>
 
-### Heading 3
+<Figure
+    caption="VIGORv2 geographic train-test split"
+  >
+    <Image source={VIGORv2} altText="VIGORv2 geographic train-test split" width={750}/>
+</Figure>
 
-Go down a level to heading 3...
+<Figure
+    caption="VIGORv2 NewYork sample"
+  >
+    <Image source={samples} altText="VIGORv2 samples" width={750}/>
+</Figure>
 
-#### Heading 4
-
-...and down again to heading 4.
-
-## LaTeX
-
-You can also add LaTeX formulas, rendered during the build process using [KaTeX](https://katex.org/) so they're quick to load for visitors of your project page. You can write them inline, like this: <LaTeX inline formula="a^2 + b^2 = c^2" />. Or, you can write them as a block:
-
-<LaTeX formula="\int_a^b f(x) dx" />
-
-## Tables
-
-You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
-
-| Model | Accuracy | F1 score | Training time (hours) |
-| :--- | :---: | :---: | :---: |
-| BERT-base | 0.89 | 0.87 | 4.5 |
-| RoBERTa-large | 0.92 | 0.91 | 7.2 |
-| DistilBERT | 0.86 | 0.84 | 2.1 |
-| XLNet | 0.90 | 0.89 | 6.8 |
-
-## BibTeX citation
-
-```bibtex
-@misc{roman2024academic,
-  author = "{Roman Hauksson}",
-  title = "Academic Project Page Template",
-  year = "2024",
-  howpublished = "\url{https://research-template.roman.technology}",
-}
-```
+## Synthesis Results
+<Figure
+    caption="Same-area sample results"
+  >
+    <Image source={results} altText="Results Samples"/>
+</Figure>
