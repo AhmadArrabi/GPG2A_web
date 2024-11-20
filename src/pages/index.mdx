@@ -24,6 +24,8 @@ import GPG2A from "../assets/model.svg"
 import samples from "../assets/samples.svg"
 import VIGORv2 from "../assets/data.svg"
 import results from "../assets/results.svg"
+import results2 from "../assets/results_2.svg"
+import results3 from "../assets/retrevied.svg"
 import Splat from "../components/Splat.tsx"
 
 import CodeBlock from "../components/CodeBlock.astro";
@@ -167,9 +169,34 @@ export const components = {pre: CodeBlock, table: Table}
     <Image source={samples} altText="VIGORv2 samples" width={750}/>
 </Figure>
 
-## Synthesis Results
+## Synthesis Results 🏞️
+We benchamark our model on VIGORv2 using the same- and cross-area protocols 
 <Figure
     caption="Same-area sample results"
   >
     <Image source={results} altText="Results Samples"/>
 </Figure>
+
+<Figure
+    caption="Cross-area sample results"
+  >
+    <Image source={results2} altText="Results Samples"/>
+</Figure>
+
+
+## Application: Sketch-based Region Search 🕵️‍♂️
+Ever struggled to locate that perfect spot you can picture in your mind but just can't find? Using GPG2A, you can retrieve areas-of-interest from a rough hand-drawn sketch (mind-map) and a simple text description (prompt)
+
+✏️ **Sketch It:** Draw what you have in mind 
+
+🗣️ **Describe It:** Add a few words about the area 
+
+🔎 **Discover It:** GPG2A synthesizes a fake aerial image, and we find the closest match from a database of real aerial images  
+
+<Figure
+    caption="Sketch-based retrieval"
+  >
+    <Image source={results3} altText="Results Samples" width={500}/>
+</Figure>
+
+*NOTE: You can use the Huggingface demo provided in the title to generate fake images from sketches*
